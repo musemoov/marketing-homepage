@@ -3,6 +3,7 @@
 import { Typography } from "@material-tailwind/react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import type { TypographyProps } from "@material-tailwind/react";
+import Image from "next/image";
 
 const CASE_STUDIES = [
   {
@@ -61,6 +62,9 @@ export function GoodCase() {
             variant="h2"
             color="blue-gray"
             className="mb-4"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
           >
             성공 사례
           </Typography>
@@ -68,6 +72,9 @@ export function GoodCase() {
             as="p"
             variant="lead"
             className="mx-auto w-full px-4 font-normal !text-gray-500 lg:w-6/12"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
           >
             MaBle과 함께 성장한 브랜드들의 실제 성공 사례를 확인하세요
           </Typography>
@@ -78,11 +85,13 @@ export function GoodCase() {
               key={idx} 
               className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition-all hover:shadow-xl"
             >
-              <div className="relative h-64 overflow-hidden">
-                <img
+              <div className="relative h-full w-full">
+                <Image
+                  width={400}
+                  height={300}
                   src={study.img}
                   alt={study.title}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/50 transition-opacity group-hover:bg-black/70" />
                 <div className="absolute bottom-4 left-4 right-4">
@@ -95,6 +104,9 @@ export function GoodCase() {
                     as="h5"
                     variant="h5"
                     className="text-white"
+                    placeholder=""
+                    onPointerEnterCapture={() => {}}
+                    onPointerLeaveCapture={() => {}}
                   >
                     {study.title}
                   </Typography>
@@ -104,6 +116,9 @@ export function GoodCase() {
                 <Typography
                   as="p"
                   className="mb-4 font-normal !text-gray-500"
+                  placeholder=""
+                  onPointerEnterCapture={() => {}}
+                  onPointerLeaveCapture={() => {}}
                 >
                   {study.desc}
                 </Typography>
@@ -113,6 +128,9 @@ export function GoodCase() {
                       <Typography
                         as="p"
                         className="mb-1 text-xl font-bold text-blue-gray-900"
+                        placeholder=""
+                        onPointerEnterCapture={() => {}}
+                        onPointerLeaveCapture={() => {}}
                       >
                         {value}
                       </Typography>
@@ -120,6 +138,9 @@ export function GoodCase() {
                         as="span"
                         variant="small"
                         className="font-normal !text-gray-500"
+                        placeholder=""
+                        onPointerEnterCapture={() => {}}
+                        onPointerLeaveCapture={() => {}}
                       >
                         {key}
                       </Typography>

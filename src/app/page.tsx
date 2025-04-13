@@ -1,8 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
-import { setupAnimations } from '@/utils/animations';
-
 // components
 import { Navbar, Footer } from "@/components";
 
@@ -15,27 +12,23 @@ import Pricing from "./solution";
 import { GoodCase } from "./good-case";
 
 export default function Campaign() {
-  useEffect(() => {
-    setupAnimations();
-  }, []);
-
   return (
     <>
       <Navbar />
-      <div className="fade-in">
+      <div className="animate-fade-in">
         <Hero />
       </div>
-      <div className="fade-in">
+      <div className="animate-fade-in">
         <DataMarketing />
       </div>
-      <div className="fade-in">
+      <div className="animate-fade-in">
         <WhyChooseUs />
       </div>
       <CarouselFeatures />
-      <div className="fade-in">
+      <div className="animate-fade-in">
         <Pricing />
       </div>
-      <div className="fade-in">
+      <div className="animate-fade-in">
         <GoodCase />
       </div>
       <Footer />

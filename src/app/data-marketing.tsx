@@ -42,19 +42,15 @@ export function DataMarketing() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             if (entry.target === imageRef.current) {
-              entry.target.classList.add('slide-left');
-            } else if (entry.target.classList.contains('feature-item')) {
-              entry.target.classList.add('slide-up');
+              entry.target.classList.add('slide-right');
             } else {
-              entry.target.classList.add('slide-down');
+              entry.target.classList.add('slide-left');
             }
           } else {
             if (entry.target === imageRef.current) {
-              entry.target.classList.remove('slide-left');
-            } else if (entry.target.classList.contains('feature-item')) {
-              entry.target.classList.remove('slide-up');
+              entry.target.classList.remove('slide-right');
             } else {
-              entry.target.classList.remove('slide-down');
+              entry.target.classList.remove('slide-left');
             }
           }
         });
@@ -62,32 +58,38 @@ export function DataMarketing() {
       { threshold: 0.1 }
     );
 
-    if (imageRef.current) {
-      observer.observe(imageRef.current);
+    // 현재 ref 값들을 변수에 저장
+    const currentImageRef = imageRef.current;
+    const currentTitleRef = titleRef.current;
+    const currentDescRef = descRef.current;
+    const currentFeatureRefs = [...featureRefs.current];
+
+    if (currentImageRef) {
+      observer.observe(currentImageRef);
     }
-    if (titleRef.current) {
-      observer.observe(titleRef.current);
+    if (currentTitleRef) {
+      observer.observe(currentTitleRef);
     }
-    if (descRef.current) {
-      observer.observe(descRef.current);
+    if (currentDescRef) {
+      observer.observe(currentDescRef);
     }
-    featureRefs.current.forEach((ref) => {
+    currentFeatureRefs.forEach((ref) => {
       if (ref) {
         observer.observe(ref);
       }
     });
 
     return () => {
-      if (imageRef.current) {
-        observer.unobserve(imageRef.current);
+      if (currentImageRef) {
+        observer.unobserve(currentImageRef);
       }
-      if (titleRef.current) {
-        observer.unobserve(titleRef.current);
+      if (currentTitleRef) {
+        observer.unobserve(currentTitleRef);
       }
-      if (descRef.current) {
-        observer.unobserve(descRef.current);
+      if (currentDescRef) {
+        observer.unobserve(currentDescRef);
       }
-      featureRefs.current.forEach((ref) => {
+      currentFeatureRefs.forEach((ref) => {
         if (ref) {
           observer.unobserve(ref);
         }
@@ -103,22 +105,25 @@ export function DataMarketing() {
     <section className="py-28 px-8">
       <div className="container mx-auto grid grid-cols-1 place-items-center lg:grid-cols-3">
         <div className="col-span-1 rounded-xl lg:mb-0 mb-12 w-[85%] lg:h-[400px]">
-          <div ref={imageRef} className="h-full">
+          <div ref={imageRef} className="h-full opacity-0">
             <div className="relative overflow-hidden rounded-[10px] h-full">
               <video
                 autoPlay
                 loop
                 muted
                 playsInline
+                preload="auto"
                 className="h-full w-full object-cover"
+                key="data-video"
               >
                 <source src="/video/datas.mp4" type="video/mp4" />
+                죄송합니다. 브라우저가 비디오 재생을 지원하지 않습니다.
               </video>
             </div>
           </div>
         </div>
         <div className="col-span-2 lg:pl-24">
-          <div ref={titleRef}>
+          <div ref={titleRef} className="opacity-0">
             <Typography 
               variant="h2" 
               color="blue-gray" 
@@ -130,7 +135,7 @@ export function DataMarketing() {
               데이터로 증명하는 마케팅
             </Typography>
           </div>
-          <div ref={descRef}>
+          <div ref={descRef} className="opacity-0">
             <Typography
               variant="lead"
               className="mb-5 max-w-lg px-4 text-left text-lg !text-gray-500 lg:px-0"

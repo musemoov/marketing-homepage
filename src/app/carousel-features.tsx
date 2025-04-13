@@ -42,12 +42,21 @@ export function CarouselFeatures() {
       <div className="absolute inset-0 w-full h-full bg-black/70" />
       <div className="container mx-auto relative z-10">
         <div className="flex mb-16 flex-col items-center">
-          <Typography variant="h2" className="text-center mb-2 text-white">
+          <Typography 
+            variant="h2" 
+            className="text-center mb-2 text-white"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
             파트너사 후기
           </Typography>
           <Typography
             variant="lead"
             className="mb-3 w-full text-center font-normal text-gray-300 lg:w-8/12"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
           >
             MaBle과 함께 성장한 파트너사들의 이야기를 들어보세요
           </Typography>
@@ -72,6 +81,9 @@ export function CarouselFeatures() {
                 ))}
               </div>
             )}
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
           >
             {TESTIMONIALS.map((testimonial, i) => (
               <div
@@ -83,8 +95,11 @@ export function CarouselFeatures() {
                     variant="lead"
                     color="blue-gray"
                     className="text-lg font-normal italic"
+                    placeholder=""
+                    onPointerEnterCapture={() => {}}
+                    onPointerLeaveCapture={() => {}}
                   >
-                    "{testimonial.content}"
+                    &ldquo;{testimonial.content}&rdquo;
                   </Typography>
                   <div className="flex items-center gap-4">
                     <div>
@@ -92,6 +107,9 @@ export function CarouselFeatures() {
                         variant="h6"
                         color="blue-gray"
                         className="mb-1"
+                        placeholder=""
+                        onPointerEnterCapture={() => {}}
+                        onPointerLeaveCapture={() => {}}
                       >
                         {testimonial.author}
                       </Typography>
@@ -99,6 +117,9 @@ export function CarouselFeatures() {
                         variant="small"
                         color="gray"
                         className="font-normal opacity-70"
+                        placeholder=""
+                        onPointerEnterCapture={() => {}}
+                        onPointerLeaveCapture={() => {}}
                       >
                         {testimonial.position}
                         <br />
