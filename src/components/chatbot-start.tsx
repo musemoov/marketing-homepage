@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button, Card, CardBody, Typography } from "@material-tailwind/react";
 import { XMarkIcon, ChatBubbleBottomCenterTextIcon, PaperAirplaneIcon, TrashIcon, PaperClipIcon } from "@heroicons/react/24/solid";
+import { ChatBubbleLeftEllipsisIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 
 // 메시지 타입 정의
 type Message = {
@@ -270,11 +271,12 @@ export function ChatbotStart() {
       <Button
         color="white"
         size="lg"
-        className="!fixed bottom-4 right-4 flex gap-1 px-3 py-2 items-center border border-[#5a25a8]/20 shadow-xl z-40 rounded-[25px]
-        transition-all duration-300 group hover:bg-[#5a25a8] hover:border-[#5a25a8] hover:shadow-[5px_5px_15px_rgba(79,7,186,0.4)]"
-        style={{boxShadow: '2px 3px 10px rgba(0,0,0,0.2)'}}
+        className="!fixed bottom-4 right-4 flex gap-1 px-3 py-2 items-center border border-[#5a25a8]/20 shadow-xl z-40 rounded-[25px]"
+        style={{ boxShadow: "2px 3px 10px rgba(0,0,0,0.2)" }}
         onClick={toggleChat}
         placeholder=""
+        onPointerEnterCapture={() => {}}
+        onPointerLeaveCapture={() => {}}
       >
         <ChatBubbleBottomCenterTextIcon className="h-6 w-6 text-[#5a25a8] transition-colors duration-300 group-hover:text-white" />
         <span className="text-[#4f07ba] font-bold transition-colors duration-300 group-hover:text-white">실시간 상담</span>

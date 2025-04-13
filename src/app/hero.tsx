@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Typography, Card } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
 
 function Hero() {
@@ -64,4 +64,5 @@ function Hero() {
     </div>
   );
 }
+
 export default Hero;

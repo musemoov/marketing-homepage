@@ -5,8 +5,8 @@
 @layer base {
   :root {
     --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
+    --background-start-rgb: 255, 255, 255;
+    --background-end-rgb: 214, 219, 220;
   }
  
   .dark {
@@ -57,14 +57,8 @@
     animation: slideRight 1s ease forwards;
   }
 
-  .slide-down {
-    animation: slideDown 1.5s ease-out forwards;
-    opacity: 0;
-  }
-
   .slide-up {
-    animation: slideUp 1.5s ease-out forwards;
-    opacity: 0;
+    animation: slideUp 1s ease forwards;
   }
 
   @keyframes fadeIn {
@@ -73,61 +67,6 @@
       transform: translateY(20px);
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slide {
-    0% {
-      opacity: 0;
-      transform: translateX(-100%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideFromLeft {
-    0% {
-      opacity: 0;
-      transform: translateX(-100%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideFromRight {
-    0% {
-      opacity: 0;
-      transform: translateX(100px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideDown {
-    0% {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideUp {
-    0% {
-      opacity: 0;
-      transform: translateY(100%);
-    }
-    100% {
       opacity: 1;
       transform: translateY(0);
     }
@@ -155,7 +94,14 @@
     }
   }
 
-  .slide-down-animation {
-    animation: slideDown 0.8s ease-out forwards;
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

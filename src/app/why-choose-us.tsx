@@ -19,9 +19,10 @@ interface OptionProps {
   children: React.ReactNode;
   index: number;
   animationType?: 'fade-left' | 'fade-right';
+  delay?: number;
 }
 
-function Option({ icon: Icon, title, children, index, animationType = 'fade-left' }: OptionProps) {
+function Option({ icon: Icon, title, children, index, animationType = 'fade-left', delay = 0 }: OptionProps) {
   const optionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,13 +30,15 @@ function Option({ icon: Icon, title, children, index, animationType = 'fade-left
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            if (animationType === 'fade-left') {
-              entry.target.classList.add('animate-fade-in-left');
-            } else {
-              entry.target.classList.add('animate-fade-in-right');
-            }
+            setTimeout(() => {
+              if (entry.target.classList.contains('opacity-0')) {
+                entry.target.classList.remove('opacity-0');
+                entry.target.classList.add('animate-fade-in-left');
+              }
+            }, delay);
           } else {
-            entry.target.classList.remove('animate-fade-in-left', 'animate-fade-in-right');
+            entry.target.classList.add('opacity-0');
+            entry.target.classList.remove('animate-fade-in-left');
           }
         });
       },
@@ -54,12 +57,13 @@ function Option({ icon: Icon, title, children, index, animationType = 'fade-left
         observer.unobserve(optionRef.current);
       }
     };
-  }, [animationType]);
+  }, [delay, animationType]);
 
   return (
     <div 
       ref={optionRef}
-      className={`opacity-0 option-item-${index} flex gap-4`} 
+      className={`opacity-0 option-item-${index} flex gap-4`}
+      style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="mb-4">
         <Icon className="text-gray-900 h-6 w-6" />
@@ -97,30 +101,41 @@ export function WhyChooseUs() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in-down');
+            entry.target.classList.add('opacity-100');
+            entry.target.classList.add('translate-y-0');
           } else {
-            entry.target.classList.remove('animate-fade-in-down');
+            entry.target.classList.remove('opacity-100');
+            entry.target.classList.remove('translate-y-0');
           }
         });
       },
-      { 
-        threshold: 0.2,
-        rootMargin: "0px" 
-      }
+      { threshold: 0.1 }
     );
 
-    if (titleRef.current) observer.observe(titleRef.current);
-    if (subtitleRef.current) observer.observe(subtitleRef.current);
+    // 현재 ref 값들을 변수에 저장
+    const currentTitleRef = titleRef.current;
+    const currentSubtitleRef = subtitleRef.current;
+
+    if (currentTitleRef) {
+      observer.observe(currentTitleRef);
+    }
+    if (currentSubtitleRef) {
+      observer.observe(currentSubtitleRef);
+    }
 
     return () => {
-      if (titleRef.current) observer.unobserve(titleRef.current);
-      if (subtitleRef.current) observer.unobserve(subtitleRef.current);
+      if (currentTitleRef) {
+        observer.unobserve(currentTitleRef);
+      }
+      if (currentSubtitleRef) {
+        observer.unobserve(currentSubtitleRef);
+      }
     };
   }, []);
 
   return (
     <section className="w-full max-w-4xl mx-auto flex flex-col items-center px-4 py-10">
-      <div ref={titleRef} className="opacity-0 w-full text-center">
+      <div ref={titleRef} className="opacity-0 w-full text-center transform -translate-y-10 transition-all duration-1000 delay-500">
         <Typography 
           variant="h2" 
           className="text-center mb-2" 
@@ -132,7 +147,7 @@ export function WhyChooseUs() {
           왜 MaBle인가요?
         </Typography>
       </div>
-      <div ref={subtitleRef} className="opacity-0 flex justify-center w-full">
+      <div ref={subtitleRef} className="opacity-0 flex justify-center w-full transform -translate-y-10 transition-all duration-1000 delay-1000">
         <Typography
           variant="lead"
           className="mb-16 inline-block text-center font-normal !text-gray-500 whitespace-nowrap"
@@ -157,18 +172,18 @@ export function WhyChooseUs() {
           </div>
           <div className="space-y-8">
             <div className="my-4">
-              <Option icon={CloudIcon} title="브랜드 기초 설계" index={0} animationType="fade-left">
+              <Option icon={CloudIcon} title="브랜드 기초 설계" index={0} animationType="fade-left" delay={1500}>
                 기초부터 탄탄하게. 브랜드의 방향성과
                 기본 전략 구조를 정확히 설계합니다.
               </Option>
             </div>
             <div className="mb-4 flex gap-4">
-              <Option icon={ChartPieIcon} title="고객과의 연결고리" index={1} animationType="fade-left">
+              <Option icon={ChartPieIcon} title="고객과의 연결고리" index={1} animationType="fade-left" delay={1500}>
                 데이터 흐름을 분석해 고객의 니즈를 파악하고,
                 브랜드 메시지를 효과적으로 전달합니다.
               </Option>
             </div>
-            <Option icon={Cog6ToothIcon} title="반응하는 마케팅 구조" index={2} animationType="fade-left">
+            <Option icon={Cog6ToothIcon} title="반응하는 마케팅 구조" index={2} animationType="fade-left" delay={1500}>
               캠페인의 흐름을 주도하며
               브랜드의 행동 전략을 유연하게 조율합니다.
             </Option>
@@ -177,20 +192,20 @@ export function WhyChooseUs() {
         <div className="grid grid-cols-1 items-center md:grid-cols-2 gap-12 mb-24">
           <div className="space-y-8">
             <div className="my-4">
-              <Option icon={KeyIcon} title="브랜드의 일관된 흐름" index={3} animationType="fade-right">
+              <Option icon={KeyIcon} title="브랜드의 일관된 흐름" index={3} animationType="fade-right" delay={1500}>
                 고객 여정의 각 지점을 자연스럽게 연결해
                 끊김 없는 브랜드 경험을 설계합니다.
               </Option>
             </div>
             <div className="mb-4 flex gap-4">
-              <Option icon={UsersIcon} title="데이터 중심 전략 설계" index={4} animationType="fade-right">
+              <Option icon={UsersIcon} title="데이터 중심 전략 설계" index={4} animationType="fade-right" delay={1500}>
                 고객 반응을 정교하게 수집·해석하여
                 더 나은 마케팅 결정을 이끌어냅니다.
               </Option>
             </div>
-            <Option icon={CloudArrowDownIcon} title="성과를 만드는 구조 관리" index={5} animationType="fade-right">
-              캠페인 전반의 흐름을 체계적으로 관리하며
-              성과 중심의 마케팅을 구현합니다.
+            <Option icon={CloudArrowDownIcon} title="성과를 만드는 구조 관리" index={5} animationType="fade-right" delay={1500}>
+              지속적인 성과 창출을 위한
+              최적화된 마케팅 구조를 설계합니다.
             </Option>
           </div>
           <div className="flex items-center justify-center w-full">
